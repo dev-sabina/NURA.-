@@ -11,7 +11,7 @@ import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="relative" style={{ backgroundColor: "var(--nura-bg)" }}>
+    <div style={{ backgroundColor: "var(--nura-bg)", position: "relative" }}>
       <Navbar />
       <HeroSection />
       <AboutSection />

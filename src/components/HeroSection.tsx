@@ -15,8 +15,8 @@ const HeroSection = () => {
   return (
     <section
       ref={ref}
-      className="relative w-full"
-      style={{ minHeight: "80vh", marginBottom: "5vw" }}
+      className="w-full"
+      style={{ minHeight: "80vh", marginBottom: "5vw", position: "relative" }}
     >
       <motion.h1
         initial={{ opacity: 0, y: 80 }}
