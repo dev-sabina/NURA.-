@@ -1,5 +1,5 @@
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { motion, useInView } from "framer-motion";
+import { useRef, useState } from "react";
 
 const flavors = [
   { id: "strawberry", num: "01", name: "Strawberry", subtitle: "real strawberry", color: "rgb(255, 99, 132)" },
@@ -12,66 +12,44 @@ const flavors = [
 
 const FlavorCard = ({ flavor }: { flavor: typeof flavors[0] }) => {
   const [hovered, setHovered] = useState(false);
-  const [mouseX, setMouseX] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    setMouseX(e.clientX);
-  };
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   return (
     <div
-      ref={ref}
-      className="flex items-start relative cursor-pointer"
-      style={{
-        margin: "4vh 0",
-        transition: "all cubic-bezier(0.19, 1, 0.22, 1) 1s",
-      }}
+      style={{ display: "flex", alignItems: "flex-start", position: "relative", cursor: "pointer", margin: "4vh 0", transition: "all cubic-bezier(0.19, 1, 0.22, 1) 1s" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onMouseMove={handleMouseMove}
+      onMouseMove={(e) => setMousePos({ x: e.clientX, y: e.clientY })}
     >
-      {/* Floating colored card */}
+      {/* Floating card */}
       <div
-        className="absolute z-[1] flex flex-col justify-between"
         style={{
-          top: "50%",
-          left: hovered ? `${mouseX}px` : "20%",
-          transform: `translate(-50%, -50%) rotate(${hovered ? 20 : 0}deg)`,
+          position: "fixed",
+          top: mousePos.y - 150,
+          left: mousePos.x - 125,
           height: 300,
           width: 250,
           borderRadius: 20,
           color: "black",
           padding: "20px 25px",
           opacity: hovered ? 1 : 0,
-          transition: "all cubic-bezier(0.19, 1, 0.22, 1) 4s",
+          transform: `rotate(${hovered ? 20 : 0}deg)`,
+          transition: "opacity 0.5s, transform 1s cubic-bezier(0.19, 1, 0.22, 1)",
           textTransform: "uppercase",
           backgroundColor: flavor.color,
-          position: "fixed",
           pointerEvents: "none",
+          zIndex: 100,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
         }}
       >
-        <h2 style={{ fontSize: 33, fontWeight: 100 }}>
-          NURA<br />{flavor.num}
-        </h2>
-        <h3 style={{ fontSize: 15, position: "absolute", top: "80%", left: 25 }}>
-          made with: {flavor.subtitle}
-        </h3>
+        <h2 style={{ fontSize: 33, fontWeight: 100 }}>NURA<br />{flavor.num}</h2>
+        <h3 style={{ fontSize: 15 }}>made with: {flavor.subtitle}</h3>
       </div>
 
-      {/* Number */}
-      <h4
-        className="self-center"
-        style={{
-          fontSize: 15,
-          fontWeight: 500,
-          minWidth: "5vw",
-        }}
-      >
-        {flavor.num}
-      </h4>
+      <h4 style={{ alignSelf: "center", fontSize: 15, fontWeight: 500, minWidth: "5vw" }}>{flavor.num}</h4>
 
-      {/* Fruit name */}
       <h1
         style={{
           fontSize: "4.9vw",
@@ -89,19 +67,7 @@ const FlavorCard = ({ flavor }: { flavor: typeof flavors[0] }) => {
         {flavor.name}
       </h1>
 
-      {/* Arrow */}
-      <p
-        style={{
-          position: "absolute",
-          right: 0,
-          fontWeight: 900,
-          fontSize: 65,
-          opacity: hovered ? 1 : 0,
-          transition: "all cubic-bezier(0.19, 1, 0.22, 1) 1.3s",
-        }}
-      >
-        ↗
-      </p>
+      <p style={{ position: "absolute", right: 0, fontWeight: 900, fontSize: 65, opacity: hovered ? 1 : 0, transition: "all cubic-bezier(0.19, 1, 0.22, 1) 1.3s" }}>↗</p>
     </div>
   );
 };
@@ -109,45 +75,17 @@ const FlavorCard = ({ flavor }: { flavor: typeof flavors[0] }) => {
 const FlavorsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const lineWidth = useTransform(scrollYProgress, [0.05, 0.7], ["20%", "100%"]);
 
   return (
     <section
       ref={ref}
-      className="relative w-full"
-      style={{
-        height: "100vh",
-        marginBottom: "6vw",
-        padding: "10vh 6vw",
-      }}
+      style={{ position: "relative", width: "100%", minHeight: "100vh", marginBottom: "6vw", padding: "10vh 6vw" }}
     >
-      {/* Animated line */}
-      <div className="relative">
-        <motion.div
-          style={{
-            height: 2,
-            backgroundColor: "var(--nura-text-dim)",
-            width: lineWidth,
-          }}
-        />
-        <h6
-          style={{
-            textTransform: "uppercase",
-            fontSize: 11,
-            position: "absolute",
-            left: "16vw",
-            top: "-1.5vh",
-          }}
-        >
-          Explore Flavors
-        </h6>
+      <div style={{ height: 2, backgroundColor: "var(--nura-text-dim)", width: isInView ? "100%" : "20%", transition: "width 2s cubic-bezier(0.19, 1, 0.22, 1)", position: "relative" }}>
+        <h6 style={{ textTransform: "uppercase", fontSize: 11, position: "absolute", left: "16vw", top: -8 }}>Explore Flavors</h6>
       </div>
 
-      <div className="mt-8">
+      <div style={{ marginTop: 32 }}>
         {flavors.map((flavor) => (
           <FlavorCard key={flavor.id} flavor={flavor} />
         ))}

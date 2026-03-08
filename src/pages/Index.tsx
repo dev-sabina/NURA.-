@@ -11,17 +11,19 @@ import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div style={{ backgroundColor: "var(--nura-bg)", position: "relative" }}>
+    <div style={{ backgroundColor: "var(--nura-bg)", overflow: "hidden" }}>
       <Navbar />
-      <HeroSection />
-      <AboutSection />
-      <FlavorsSection />
-      <QuoteSection />
-      <ContentSection />
-      <MarqueeSection />
-      <ComparisonSection />
-      <ProductsSection />
-      <Footer />
+      <div style={{ position: "relative" }}>
+        <HeroSection />
+        <AboutSection />
+        <FlavorsSection />
+        <QuoteSection />
+        <ContentSection />
+        <MarqueeSection />
+        <ComparisonSection />
+        <ProductsSection />
+        <Footer />
+      </div>
     </div>
   );
 };
