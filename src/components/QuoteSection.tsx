@@ -11,7 +11,7 @@ const QuoteSection = () => {
       style={{
         position: "relative",
         width: "100%",
-        minHeight: "100vh",
+        height: "100vh",
         padding: "1vw 4vw",
         display: "flex",
         alignItems: "center",

@@ -25,7 +25,7 @@ const MarqueeSection = () => {
       ? [{ text: "FRUIT", outline: false }, { text: "JOY", outline: true }]
       : [{ text: "HEALTHY", outline: false }, { text: "SWEET", outline: true }];
 
-    return Array(20).fill(null).map((_, i) => (
+    return Array(20).fill(null).flatMap((_, i) =>
       words.map((word, j) => (
         <span
           key={`${i}-${j}`}
@@ -37,13 +37,13 @@ const MarqueeSection = () => {
           {word.text}
         </span>
       ))
-    ));
+    );
   };
 
   return (
     <section ref={ref} className="overflow-hidden select-none">
       {rows.map((row, i) => (
-        <div key={i} className="overflow-hidden" style={{ overflowY: "hidden" }}>
+        <div key={i} style={{ overflow: "hidden" }}>
           <motion.h1
             style={{
               fontSize: "10vw",
@@ -53,6 +53,8 @@ const MarqueeSection = () => {
               whiteSpace: "nowrap",
               fontWeight: 700,
               x: row.direction === 1 ? x1 : x2,
+              display: "flex",
+              gap: 0,
             }}
           >
             {renderWords(row.type)}
