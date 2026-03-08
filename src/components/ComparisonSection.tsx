@@ -3,57 +3,82 @@ import { useRef } from "react";
 
 const ComparisonSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  const leftX = useTransform(scrollYProgress, [0.1, 0.4], [-100, 0]);
-  const rightX = useTransform(scrollYProgress, [0.1, 0.4], [100, 0]);
-  const leftOpacity = useTransform(scrollYProgress, [0.1, 0.35], [0, 1]);
-  const rightOpacity = useTransform(scrollYProgress, [0.15, 0.4], [0, 1]);
-  const leftImgScale = useTransform(scrollYProgress, [0.2, 0.5], [1.3, 1]);
-  const rightImgScale = useTransform(scrollYProgress, [0.2, 0.5], [1.3, 1]);
+  const leftClip = useTransform(
+    scrollYProgress,
+    [0.15, 0.45],
+    ["inset(100% 0% 0% 0%)", "inset(0% 0% 0% 0%)"]
+  );
+  const rightClip = useTransform(
+    scrollYProgress,
+    [0.2, 0.5],
+    ["inset(100% 0% 0% 0%)", "inset(0% 0% 0% 0%)"]
+  );
+  const leftTitleY = useTransform(scrollYProgress, [0.1, 0.35], [60, 0]);
+  const rightTitleY = useTransform(scrollYProgress, [0.15, 0.4], [60, 0]);
+  const leftTitleOpacity = useTransform(scrollYProgress, [0.1, 0.3], [0, 1]);
+  const rightTitleOpacity = useTransform(scrollYProgress, [0.15, 0.35], [0, 1]);
 
   return (
-    <section ref={containerRef} className="py-24 md:py-40 px-6 md:px-12">
+    <section ref={containerRef} className="py-32 md:py-48 px-6 md:px-12">
       <div ref={ref}>
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-label mb-12"
-          style={{ color: "hsl(var(--muted-foreground))" }}
+          transition={{ duration: 0.8 }}
+          className="mb-16"
         >
-          Is your treat <span style={{ color: "hsl(var(--accent))" }}>just sugar?</span>
-        </motion.p>
+          <p
+            className="text-sm md:text-base"
+            style={{ color: "hsl(var(--muted-foreground))" }}
+          >
+            Is your treat{" "}
+            <span style={{ color: "hsl(var(--accent))" }}>just sugar?</span>
+          </p>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
-          <motion.div style={{ x: leftX, opacity: leftOpacity }} className="space-y-6">
-            <h3 className="text-section-heading opacity-40">Typical Candy</h3>
-            <div className="overflow-hidden rounded-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+          {/* Typical Candy */}
+          <div className="space-y-6">
+            <motion.h3
+              className="text-section-heading opacity-30"
+              style={{ y: leftTitleY, opacity: leftTitleOpacity }}
+            >
+              Typical Candy
+            </motion.h3>
+            <div className="overflow-hidden rounded-xl aspect-[4/3]">
               <motion.img
-                style={{ scale: leftImgScale }}
                 src="/images/candy.webp"
                 alt="Typical candy"
-                className="w-full object-cover grayscale opacity-60"
+                className="w-full h-full object-cover grayscale"
+                style={{ clipPath: leftClip, opacity: 0.5 }}
               />
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div style={{ x: rightX, opacity: rightOpacity }} className="space-y-6">
-            <h3 className="text-section-heading">NURA</h3>
-            <div className="overflow-hidden rounded-lg">
+          {/* NURA */}
+          <div className="space-y-6">
+            <motion.h3
+              className="text-section-heading"
+              style={{ y: rightTitleY, opacity: rightTitleOpacity }}
+            >
+              NURA
+            </motion.h3>
+            <div className="overflow-hidden rounded-xl aspect-[4/3]">
               <motion.img
-                style={{ scale: rightImgScale }}
                 src="/images/right.webp"
                 alt="NURA fruit candy"
-                className="w-full object-cover"
+                className="w-full h-full object-cover"
+                style={{ clipPath: rightClip }}
               />
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
