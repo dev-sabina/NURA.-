@@ -1,16 +1,29 @@
+import { motion } from "framer-motion";
+
 const Footer = () => {
   return (
     <footer className="py-16 px-6 md:px-12 border-t" style={{ borderColor: "hsl(var(--border))" }}>
       <div className="flex flex-col md:flex-row justify-between items-start gap-8">
-        <div>
-          <p className="text-hero text-4xl md:text-6xl font-bold mb-4" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <p className="text-4xl md:text-6xl font-bold mb-4" style={{ color: "hsl(var(--primary))" }}>
             NURA
           </p>
           <p className="text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>
             Real fruit. Pure deliciousness.
           </p>
-        </div>
-        <div className="flex gap-12">
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="flex gap-12"
+        >
           <div className="flex flex-col gap-3">
             <p className="text-label mb-2" style={{ color: "hsl(var(--muted-foreground))" }}>Flavors</p>
             {["Strawberry", "Mango", "Mixed Berry"].map((item) => (
@@ -27,11 +40,18 @@ const Footer = () => {
               </a>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
-      <p className="mt-16 text-xs" style={{ color: "hsl(var(--muted-foreground) / 0.5)" }}>
+      <motion.p
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        viewport={{ once: true }}
+        className="mt-16 text-xs"
+        style={{ color: "hsl(var(--muted-foreground) / 0.5)" }}
+      >
         © 2026 NURA. All rights reserved.
-      </p>
+      </motion.p>
     </footer>
   );
 };
