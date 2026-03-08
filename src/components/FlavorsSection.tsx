@@ -12,78 +12,81 @@ const flavors = [
 
 const FlavorCard = ({ flavor, index }: { flavor: typeof flavors[0]; index: number }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: true, margin: "-30px" });
   const [hovered, setHovered] = useState(false);
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: -80 }}
+      initial={{ opacity: 0, x: -100 }}
       animate={isInView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.8, delay: index * 0.08, ease: [0.76, 0, 0.24, 1] }}
-      className="group relative border-t py-10 md:py-14 cursor-pointer overflow-hidden"
+      transition={{ duration: 1, delay: index * 0.06, ease: [0.76, 0, 0.24, 1] }}
+      className="group relative border-t py-8 md:py-12 cursor-pointer overflow-hidden"
       style={{ borderColor: "hsl(var(--border))" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Hover background glow */}
+      {/* Hover glow */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: hovered ? 0.06 : 0 }}
-        transition={{ duration: 0.4 }}
-        style={{ background: `hsl(${flavor.color})` }}
+        animate={{ opacity: hovered ? 0.08 : 0 }}
+        transition={{ duration: 0.5 }}
+        style={{ background: `linear-gradient(90deg, hsl(${flavor.color} / 0.2), transparent)` }}
       />
 
       <div className="flex items-center justify-between relative z-10">
-        <div className="flex items-center gap-6 md:gap-12 flex-1">
-          {/* Info card that reveals on hover */}
+        <div className="flex items-center gap-4 md:gap-10 flex-1">
+          {/* Expanding colored card */}
           <motion.div
-            initial={{ width: 0, opacity: 0 }}
-            animate={hovered ? { width: 200, opacity: 1 } : { width: 0, opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-            className="hidden md:flex flex-col justify-between overflow-hidden rounded-xl p-4 h-28 flex-shrink-0"
-            style={{ background: `hsl(${flavor.color} / 0.15)` }}
+            animate={hovered ? { width: 180, opacity: 1 } : { width: 0, opacity: 0 }}
+            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+            className="hidden md:flex flex-col justify-between overflow-hidden rounded-xl h-24 flex-shrink-0"
+            style={{ background: `hsl(${flavor.color} / 0.12)`, borderLeft: `3px solid hsl(${flavor.color})` }}
           >
-            <div>
+            <div className="p-3">
               <p className="text-xs font-bold whitespace-nowrap" style={{ color: `hsl(${flavor.color})` }}>
-                NURA <br />{flavor.num}
+                NURA {flavor.num}
+              </p>
+              <p className="text-[10px] whitespace-nowrap mt-2" style={{ color: "hsl(var(--muted-foreground))" }}>
+                made with: {flavor.subtitle}
               </p>
             </div>
-            <p className="text-[10px] whitespace-nowrap" style={{ color: "hsl(var(--muted-foreground))" }}>
-              made with: {flavor.subtitle}
-            </p>
           </motion.div>
 
-          <div>
-            <div className="flex items-center gap-4 mb-1 md:hidden">
-              <span className="text-label" style={{ color: "hsl(var(--muted-foreground))" }}>NURA</span>
-              <span className="text-label" style={{ color: "hsl(var(--muted-foreground))" }}>{flavor.num}</span>
+          <div className="min-w-0">
+            <div className="flex items-center gap-3 mb-1 md:mb-0">
+              <span className="text-label hidden md:inline" style={{ color: "hsl(var(--muted-foreground))" }}>NURA</span>
+              <span className="text-label hidden md:inline" style={{ color: "hsl(var(--muted-foreground))" }}>{flavor.num}</span>
             </div>
-            <p className="text-xs mb-2 md:hidden" style={{ color: "hsl(var(--muted-foreground))" }}>
-              made with: {flavor.subtitle}
-            </p>
             <motion.h3
-              animate={{ x: hovered ? 20 : 0 }}
+              animate={{ x: hovered ? 15 : 0, color: hovered ? `hsl(${flavor.color})` : "hsl(var(--primary))" }}
               transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-              className="text-4xl md:text-6xl lg:text-7xl font-bold"
-              style={{ color: hovered ? `hsl(${flavor.color})` : "hsl(var(--primary))" }}
+              className="text-3xl md:text-5xl lg:text-7xl font-bold whitespace-nowrap"
             >
               {flavor.name}
             </motion.h3>
           </div>
         </div>
 
-        <div className="flex items-center gap-6">
-          <span className="flavor-number select-none hidden md:block">{flavor.num}</span>
-          <motion.div
-            animate={{ x: hovered ? 0 : 10, opacity: hovered ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-            className="text-2xl"
+        <div className="flex items-center gap-4 md:gap-8">
+          <span
+            className="text-6xl md:text-8xl font-black select-none hidden lg:block"
+            style={{
+              color: "transparent",
+              WebkitTextStroke: `1px hsl(${hovered ? flavor.color : "var(--primary)"} / ${hovered ? 0.3 : 0.08})`,
+              transition: "all 0.5s",
+            }}
+          >
+            {flavor.num}
+          </span>
+          <motion.span
+            animate={{ x: hovered ? 0 : 15, opacity: hovered ? 1 : 0, scale: hovered ? 1 : 0.5 }}
+            transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
+            className="text-xl md:text-2xl"
             style={{ color: `hsl(${flavor.color})` }}
           >
             ↗
-          </motion.div>
+          </motion.span>
         </div>
       </div>
     </motion.div>
@@ -96,23 +99,22 @@ const FlavorsSection = () => {
     target: ref,
     offset: ["start end", "end start"],
   });
-  const lineWidth = useTransform(scrollYProgress, [0, 0.8], ["0%", "100%"]);
+  const lineWidth = useTransform(scrollYProgress, [0.05, 0.7], ["0%", "100%"]);
 
   return (
     <section id="flavors" ref={ref} className="py-24 md:py-32 px-6 md:px-12">
-      {/* Animated progress line */}
-      <div className="relative mb-8">
+      <div className="relative mb-10">
         <div className="h-[1px] w-full" style={{ background: "hsl(var(--border))" }} />
         <motion.div
-          className="absolute top-0 left-0 h-[1px]"
+          className="absolute top-0 left-0 h-[2px]"
           style={{ width: lineWidth, background: "hsl(var(--primary))" }}
         />
         <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-label mt-4"
+          className="text-label mt-5"
           style={{ color: "hsl(var(--muted-foreground))" }}
         >
           Explore Flavors
@@ -122,6 +124,9 @@ const FlavorsSection = () => {
       {flavors.map((flavor, i) => (
         <FlavorCard key={flavor.num} flavor={flavor} index={i} />
       ))}
+
+      {/* Last border */}
+      <div className="border-t" style={{ borderColor: "hsl(var(--border))" }} />
     </section>
   );
 };
