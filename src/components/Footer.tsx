@@ -1,75 +1,98 @@
-import { motion } from "framer-motion";
-
 const Footer = () => {
   return (
-    <footer className="py-20 px-6 md:px-12 border-t" style={{ borderColor: "hsl(var(--border))" }}>
-      <div className="flex flex-col md:flex-row justify-between items-start gap-12">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
-          viewport={{ once: true }}
-        >
-          <motion.p
-            className="text-5xl md:text-7xl font-black mb-4"
-            style={{ color: "hsl(var(--primary))" }}
-            whileHover={{ scale: 1.02 }}
-          >
-            NURA
-          </motion.p>
-          <p className="text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>
-            Real fruit. Pure deliciousness.
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.15, ease: [0.76, 0, 0.24, 1] }}
-          viewport={{ once: true }}
-          className="flex gap-16"
-        >
-          <div className="flex flex-col gap-3">
-            <p className="text-label mb-2" style={{ color: "hsl(var(--muted-foreground))" }}>Flavors</p>
-            {["Strawberry", "Mango", "Mixed Berry", "Apple Burst", "Citrus Zing"].map((item) => (
-              <motion.a
-                key={item}
-                href="#"
-                whileHover={{ x: 5 }}
-                className="text-sm hover:opacity-60 transition-opacity"
-                style={{ color: "hsl(var(--primary))" }}
-              >
-                {item}
-              </motion.a>
-            ))}
-          </div>
-          <div className="flex flex-col gap-3">
-            <p className="text-label mb-2" style={{ color: "hsl(var(--muted-foreground))" }}>Company</p>
-            {["About", "FAQs", "Contact"].map((item) => (
-              <motion.a
-                key={item}
-                href="#"
-                whileHover={{ x: 5 }}
-                className="text-sm hover:opacity-60 transition-opacity"
-                style={{ color: "hsl(var(--primary))" }}
-              >
-                {item}
-              </motion.a>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-        viewport={{ once: true }}
-        className="mt-20 text-xs"
-        style={{ color: "hsl(var(--muted-foreground) / 0.4)" }}
+    <footer
+      style={{
+        minHeight: "45vh",
+        width: "100%",
+        backgroundColor: "var(--nura-bg)",
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: "#28242b",
+          color: "#fff",
+          paddingTop: 40,
+          fontSize: "0.8rem",
+        }}
       >
-        © 2026 NURA. All rights reserved.
-      </motion.p>
+        <div
+          className="grid gap-8"
+          style={{
+            maxWidth: 1200,
+            margin: "0 auto",
+            padding: "0 20px",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            borderBottom: "1px solid #555",
+            paddingBottom: 40,
+          }}
+        >
+          <div>
+            <h4 style={{ color: "#eee", marginBottom: 15, fontSize: "1.1em", fontWeight: 600 }}>
+              NURA
+            </h4>
+            <p style={{ color: "#ccc", lineHeight: 1.6 }}>
+              Real fruit candy made with pure, natural flavors. Sweetness you can feel good about.
+            </p>
+          </div>
+          <div>
+            <h4 style={{ color: "#eee", marginBottom: 15, fontSize: "1.1em", fontWeight: 600 }}>
+              Flavors
+            </h4>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+              {["Strawberry", "Mango", "Mixed Berry", "Apple Burst", "Citrus Zing"].map((item) => (
+                <li key={item} style={{ marginBottom: 10 }}>
+                  <a
+                    href="#"
+                    style={{
+                      color: "#ccc",
+                      textDecoration: "none",
+                      transition: "color 0.3s ease",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "#ccc")}
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h4 style={{ color: "#eee", marginBottom: 15, fontSize: "1.1em", fontWeight: 600 }}>
+              Company
+            </h4>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+              {["About", "FAQs", "Contact", "Privacy Policy"].map((item) => (
+                <li key={item} style={{ marginBottom: 10 }}>
+                  <a
+                    href="#"
+                    style={{
+                      color: "#ccc",
+                      textDecoration: "none",
+                      transition: "color 0.3s ease",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "#ccc")}
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div
+          style={{
+            backgroundColor: "#222",
+            padding: "15px 20px",
+            textAlign: "center",
+            fontSize: "0.9em",
+            color: "#aaa",
+          }}
+        >
+          © 2026 NURA. All rights reserved.
+        </div>
+      </div>
     </footer>
   );
 };
