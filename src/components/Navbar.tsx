@@ -11,120 +11,120 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 py-5 mix-blend-difference">
-        <motion.span
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-          className="text-label tracking-[0.3em]"
-          style={{ color: "hsl(var(--primary))" }}
+      <nav
+        className="sticky top-0 z-[999999] flex items-center justify-between w-full"
+        style={{
+          padding: "4vh 5.8vw",
+          color: menuOpen ? "var(--nura-menu-text)" : "var(--nura-text-nav)",
+          backdropFilter: "blur(5px)",
+          WebkitBackdropFilter: "blur(5px)",
+          transition: "color 0.6s cubic-bezier(0.19, 1, 0.22, 1)",
+        }}
+      >
+        <h2
+          style={{
+            fontSize: "1rem",
+            letterSpacing: "0.5vw",
+            textTransform: "uppercase",
+            cursor: "pointer",
+            fontWeight: 100,
+          }}
         >
-          N U R A
-        </motion.span>
-        <div className="flex items-center gap-6">
-          <motion.span
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.76, 0, 0.24, 1] }}
-            className="text-label cursor-pointer hidden md:block hover:opacity-60 transition-opacity"
-            style={{ color: "hsl(var(--primary))" }}
+          NURA
+        </h2>
+        <div className="flex items-center">
+          <h3
+            className="hidden md:block"
+            style={{
+              fontSize: "1rem",
+              textTransform: "uppercase",
+              marginRight: 55,
+              letterSpacing: 2,
+              wordSpacing: 6,
+              cursor: "pointer",
+            }}
           >
-            CART
-          </motion.span>
-          <motion.button
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.76, 0, 0.24, 1] }}
+            Cart
+          </h3>
+          <div
             onClick={() => setMenuOpen(!menuOpen)}
-            className="flex flex-col gap-1.5 cursor-pointer z-[60] p-2"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
+            className="flex flex-col justify-between cursor-pointer relative z-[9999999]"
+            style={{ width: "2vw", minWidth: 28, height: "1.6vh", minHeight: 14 }}
           >
-            <motion.span
-              animate={menuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-              transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
-              className="block w-7 h-[2px]"
-              style={{ background: "hsl(var(--primary))" }}
+            <span
+              className="block rounded-full"
+              style={{
+                height: 2,
+                width: menuOpen ? "70%" : "100%",
+                backgroundColor: menuOpen ? "var(--nura-menu-text)" : "var(--nura-text-nav)",
+                transformOrigin: "0 100%",
+                transform: menuOpen ? "rotate(40deg)" : "rotate(0deg)",
+                transition: "all cubic-bezier(0.19, 1, 0.22, 1) 2s",
+              }}
             />
-            <motion.span
-              animate={menuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
-              transition={{ duration: 0.3 }}
-              className="block w-7 h-[2px]"
-              style={{ background: "hsl(var(--primary))" }}
+            <span
+              className="block rounded-full"
+              style={{
+                height: 2,
+                width: menuOpen ? "100%" : "70%",
+                backgroundColor: menuOpen ? "var(--nura-menu-text)" : "var(--nura-text-nav)",
+                transformOrigin: "30% 50%",
+                transform: menuOpen ? "rotate(-40deg)" : "rotate(0deg)",
+                transition: "all cubic-bezier(0.19, 1, 0.22, 1) 2s",
+              }}
             />
-            <motion.span
-              animate={menuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-              transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
-              className="block w-7 h-[2px]"
-              style={{ background: "hsl(var(--primary))" }}
-            />
-          </motion.button>
+          </div>
         </div>
       </nav>
 
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ clipPath: "circle(0% at calc(100% - 3rem) 2rem)" }}
-            animate={{ clipPath: "circle(150% at calc(100% - 3rem) 2rem)" }}
-            exit={{ clipPath: "circle(0% at calc(100% - 3rem) 2rem)" }}
-            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-40 flex items-center justify-center"
-            style={{ background: "hsl(var(--card))" }}
-          >
-            <div className="text-center">
-              <motion.p
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="text-label mb-10"
-                style={{ color: "hsl(var(--muted-foreground))" }}
-              >
-                Menu
-              </motion.p>
-              <div className="flex flex-col gap-4 mb-16">
-                {menuItems.map((item, i) => (
-                  <motion.a
-                    key={item}
-                    href="#"
-                    initial={{ opacity: 0, y: 40, rotateX: -30 }}
-                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                    transition={{
-                      delay: 0.3 + i * 0.06,
-                      duration: 0.6,
-                      ease: [0.76, 0, 0.24, 1],
-                    }}
-                    whileHover={{ x: 20, scale: 1.05 }}
-                    className="text-2xl md:text-4xl font-bold transition-colors"
-                    style={{
-                      color: "hsl(var(--primary))",
-                      transformOrigin: "left bottom",
-                    }}
-                  >
-                    {item}
-                  </motion.a>
-                ))}
-              </div>
-              <div className="flex gap-8 justify-center">
-                {navLinks.map((link, i) => (
-                  <motion.a
-                    key={link}
-                    href="#"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.7 + i * 0.05 }}
-                    whileHover={{ scale: 1.1 }}
-                    className="text-label transition-opacity hover:opacity-60"
-                    style={{ color: "hsl(var(--muted-foreground))" }}
-                  >
-                    {link}
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Full-screen menu overlay */}
+      <div
+        className="fixed inset-0 z-[999] flex flex-col justify-center overflow-hidden"
+        style={{
+          backgroundColor: "var(--nura-menu-bg)",
+          color: "var(--nura-menu-text)",
+          transform: menuOpen ? "translateY(0)" : "translateY(-100%)",
+          transition: "all cubic-bezier(0.19, 1, 0.22, 1) 1.8s",
+          borderTop: "1px solid #000",
+        }}
+      >
+        <h1
+          style={{
+            fontSize: "13.5vw",
+            marginTop: "15vh",
+            marginLeft: "4.8vw",
+            letterSpacing: "-1vw",
+            textTransform: "uppercase",
+            fontWeight: 700,
+          }}
+        >
+          Menu
+        </h1>
+        <div
+          className="flex flex-col flex-wrap"
+          style={{
+            height: "45vh",
+            width: "45vw",
+            marginLeft: "5.5vw",
+            marginTop: "5vh",
+          }}
+        >
+          {[...menuItems, ...navLinks].map((item) => (
+            <h4
+              key={item}
+              className="cursor-pointer hover:opacity-60 transition-opacity"
+              style={{
+                fontSize: "1.8vw",
+                marginBottom: "2.2vh",
+                fontWeight: 500,
+                width: "15vw",
+              }}
+            >
+              {item}
+            </h4>
+          ))}
+        </div>
+      </div>
     </>
   );
 };

@@ -8,51 +8,55 @@ const MarqueeSection = () => {
     offset: ["start end", "end start"],
   });
 
-  const x1 = useTransform(scrollYProgress, [0, 1], [0, -1200]);
-  const x2 = useTransform(scrollYProgress, [0, 1], [-1200, 0]);
+  const x1 = useTransform(scrollYProgress, [0, 1], [0, -2000]);
+  const x2 = useTransform(scrollYProgress, [0, 1], [-2000, 0]);
 
   const rows = [
-    { words: [{ text: "FRUIT", filled: true }, { text: "JOY", filled: false }], direction: 1 },
-    { words: [{ text: "HEALTHY", filled: false }, { text: "SWEET", filled: true }], direction: -1 },
-    { words: [{ text: "FRUIT", filled: true }, { text: "JOY", filled: false }], direction: 1 },
-    { words: [{ text: "HEALTHY", filled: false }, { text: "SWEET", filled: true }], direction: -1 },
-    { words: [{ text: "FRUIT", filled: true }, { text: "JOY", filled: false }], direction: 1 },
-    { words: [{ text: "HEALTHY", filled: false }, { text: "SWEET", filled: true }], direction: -1 },
+    { type: "fruit", direction: 1 },
+    { type: "healthy", direction: -1 },
+    { type: "fruit", direction: 1 },
+    { type: "healthy", direction: -1 },
+    { type: "fruit", direction: 1 },
+    { type: "healthy", direction: -1 },
   ];
 
+  const renderWords = (type: string) => {
+    const words = type === "fruit"
+      ? [{ text: "FRUIT", outline: false }, { text: "JOY", outline: true }]
+      : [{ text: "HEALTHY", outline: false }, { text: "SWEET", outline: true }];
+
+    return Array(20).fill(null).map((_, i) => (
+      words.map((word, j) => (
+        <span
+          key={`${i}-${j}`}
+          style={{
+            color: word.outline ? "transparent" : "var(--nura-text)",
+            WebkitTextStroke: word.outline ? "1px var(--nura-text-dim)" : "none",
+          }}
+        >
+          {word.text}
+        </span>
+      ))
+    ));
+  };
+
   return (
-    <section ref={ref} className="py-8 overflow-hidden select-none">
+    <section ref={ref} className="overflow-hidden select-none">
       {rows.map((row, i) => (
-        <div key={i} className="overflow-hidden leading-none">
-          <motion.div
-            style={{ x: row.direction === 1 ? x1 : x2 }}
-            className="flex whitespace-nowrap"
+        <div key={i} className="overflow-hidden" style={{ overflowY: "hidden" }}>
+          <motion.h1
+            style={{
+              fontSize: "10vw",
+              textTransform: "uppercase",
+              cursor: "default",
+              lineHeight: "22vh",
+              whiteSpace: "nowrap",
+              fontWeight: 700,
+              x: row.direction === 1 ? x1 : x2,
+            }}
           >
-            {Array(30).fill(null).map((_, j) => (
-              <span key={j} className="flex-shrink-0 flex items-center">
-                {row.words.map((word, k) => (
-                  <span
-                    key={k}
-                    className="inline-block px-1"
-                    style={{
-                      fontSize: "clamp(4rem, 10vw, 10rem)",
-                      fontWeight: 900,
-                      letterSpacing: "-0.02em",
-                      lineHeight: 1,
-                      color: word.filled
-                        ? "hsl(var(--primary) / 0.06)"
-                        : "transparent",
-                      WebkitTextStroke: word.filled
-                        ? "1.5px hsl(var(--primary) / 0.12)"
-                        : "1.5px hsl(var(--primary) / 0.06)",
-                    }}
-                  >
-                    {word.text}
-                  </span>
-                ))}
-              </span>
-            ))}
-          </motion.div>
+            {renderWords(row.type)}
+          </motion.h1>
         </div>
       ))}
     </section>

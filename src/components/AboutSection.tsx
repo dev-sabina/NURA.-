@@ -1,94 +1,96 @@
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const AboutSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  const imgY = useTransform(scrollYProgress, [0, 1], [80, -80]);
-  const imgScale = useTransform(scrollYProgress, [0, 0.3, 0.6], [1.2, 1, 0.95]);
-  const imgOpacity = useTransform(scrollYProgress, [0, 0.15, 0.5, 0.8], [0, 1, 1, 0.3]);
-  const textY = useTransform(scrollYProgress, [0.1, 0.5], [60, 0]);
+  const imgY = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   const lines = [
-    "We're bringing the pure taste of real fruit",
-    "into a chewy treat bursting with natural flavor.",
-    "Sweetness you can feel good about.",
+    { text: "We're bringing the pure taste of real fruit", style: {} },
+    {
+      text: "into a chewy treat bursting with ",
+      span: "natural flavor",
+      after: ".",
+      style: {},
+    },
+    {
+      text: "Sweetness you can feel good about.",
+      isScript: true,
+      style: {},
+    },
   ];
 
   return (
-    <section ref={containerRef} className="relative py-0">
-      {/* Full-width background image */}
+    <section
+      ref={containerRef}
+      className="relative w-full"
+      style={{ minHeight: "100vh", paddingBottom: "10vh" }}
+    >
+      {/* Centered image */}
       <motion.div
-        className="relative w-full h-[70vh] md:h-[90vh] overflow-hidden"
-        style={{ y: imgY }}
+        className="flex items-center justify-center"
+        style={{ height: 500, marginBottom: "5vw", y: imgY }}
       >
         <motion.img
+          initial={{ scale: 1.1 }}
+          whileInView={{ scale: 1 }}
+          transition={{ duration: 1.4, ease: [0.76, 0, 0.24, 1] }}
+          viewport={{ once: true }}
           src="/images/img2.png"
-          alt="Vibrant fruit candy"
-          className="w-full h-full object-cover"
-          style={{ scale: imgScale, opacity: imgOpacity }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(to bottom, hsl(var(--background)) 0%, transparent 20%, transparent 60%, hsl(var(--background)) 100%)",
-          }}
+          alt="Vibrant image of fruit candy"
+          style={{ height: "100%", objectFit: "contain" }}
         />
       </motion.div>
 
-      {/* Text content */}
-      <motion.div
-        ref={ref}
-        className="relative px-6 md:px-12 py-24 md:py-32 max-w-5xl"
-        style={{ y: textY }}
-      >
-        <div style={{ perspective: "1000px" }}>
-          {lines.map((line, i) => (
-            <div key={i} className="overflow-hidden">
-              <motion.p
-                initial={{ opacity: 0, rotateX: -90, y: 80 }}
-                animate={isInView ? { opacity: 1, rotateX: 0, y: 0 } : {}}
-                transition={{
-                  duration: 1.2,
-                  delay: 0.15 + i * 0.2,
-                  ease: [0.76, 0, 0.24, 1],
-                }}
-                className="text-section-heading"
-                style={{ transformOrigin: "center bottom", willChange: "transform, opacity" }}
-              >
-                {i === 1 ? (
-                  <>into a chewy treat bursting with <span style={{ color: "hsl(var(--accent))" }}>natural flavor</span>.</>
-                ) : line}
-              </motion.p>
-            </div>
-          ))}
-        </div>
-
-        <motion.div
-          initial={{ width: 0 }}
-          animate={isInView ? { width: "100%" } : {}}
-          transition={{ duration: 1.5, delay: 0.9, ease: [0.76, 0, 0.24, 1] }}
-          className="mt-12 overflow-hidden"
-        >
-          <div className="flex items-center gap-4">
-            <div className="h-[1px] flex-1" style={{ background: "hsl(var(--primary) / 0.2)" }} />
-            <a
-              href="#flavors"
-              className="text-label whitespace-nowrap hover:opacity-60 transition-opacity cursor-pointer"
-              style={{ color: "hsl(var(--primary))" }}
-            >
-              Explore Flavors
-            </a>
-          </div>
-        </motion.div>
-      </motion.div>
+      {/* Text lines with rotateX animation */}
+      {lines.map((line, i) => (
+        <TextLine key={i} line={line} index={i} />
+      ))}
     </section>
+  );
+};
+
+const TextLine = ({ line, index }: { line: any; index: number }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <motion.h1
+      ref={ref}
+      initial={{ opacity: 0, rotateX: -90 }}
+      animate={isInView ? { opacity: 1, rotateX: 0 } : {}}
+      transition={{
+        duration: 1.2,
+        delay: index * 0.15,
+        ease: [0.76, 0, 0.24, 1],
+      }}
+      style={{
+        fontSize: index === 1 ? "3.8vw" : index === 2 ? "4.5vw" : "4vw",
+        fontWeight: index === 2 ? 900 : 500,
+        width: index === 1 ? "67%" : index === 2 ? "60%" : "80%",
+        margin: "0 auto",
+        textAlign: "center",
+        transformOrigin: "-10% -10%",
+        fontFamily: index === 2 ? "'Dancing Script', cursive" : undefined,
+      }}
+    >
+      {line.span ? (
+        <>
+          {line.text}
+          <span className="font-script" style={{ fontWeight: 900, fontSize: "4.4vw" }}>
+            {line.span}
+          </span>
+          {line.after}
+        </>
+      ) : (
+        line.text
+      )}
+    </motion.h1>
   );
 };
 

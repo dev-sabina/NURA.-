@@ -3,22 +3,24 @@ import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import FlavorsSection from "@/components/FlavorsSection";
 import QuoteSection from "@/components/QuoteSection";
+import ContentSection from "@/components/ContentSection";
 import MarqueeSection from "@/components/MarqueeSection";
 import ComparisonSection from "@/components/ComparisonSection";
-import CTASection from "@/components/CTASection";
+import ProductsSection from "@/components/ProductsSection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="relative" style={{ backgroundColor: "var(--nura-bg)" }}>
       <Navbar />
       <HeroSection />
       <AboutSection />
       <FlavorsSection />
       <QuoteSection />
+      <ContentSection />
       <MarqueeSection />
       <ComparisonSection />
-      <CTASection />
+      <ProductsSection />
       <Footer />
     </div>
   );
