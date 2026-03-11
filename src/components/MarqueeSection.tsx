@@ -21,23 +21,34 @@ const MarqueeSection = () => {
   ];
 
   const renderWords = (type: string) => {
-    const words = type === "fruit"
-      ? [{ text: "FRUIT", outline: false }, { text: "JOY", outline: true }]
-      : [{ text: "HEALTHY", outline: false }, { text: "SWEET", outline: true }];
+    const words =
+      type === "fruit"
+        ? [
+            { text: "FRUIT", outline: false },
+            { text: "JOY", outline: true },
+          ]
+        : [
+            { text: "HEALTHY", outline: false },
+            { text: "SWEET", outline: true },
+          ];
 
-    return Array(20).fill(null).flatMap((_, i) =>
-      words.map((word, j) => (
-        <span
-          key={`${i}-${j}`}
-          style={{
-            color: word.outline ? "transparent" : "var(--nura-text)",
-            WebkitTextStroke: word.outline ? "1px var(--nura-text-dim)" : "none",
-          }}
-        >
-          {word.text}
-        </span>
-      ))
-    );
+    return Array(20)
+      .fill(null)
+      .flatMap((_, i) =>
+        words.map((word, j) => (
+          <span
+            key={`${i}-${j}`}
+            style={{
+              color: word.outline ? "transparent" : "var(--nura-text)",
+              WebkitTextStroke: word.outline
+                ? "1px var(--nura-text-dim)"
+                : "none",
+            }}
+          >
+            {word.text}
+          </span>
+        ))
+      );
   };
 
   return (

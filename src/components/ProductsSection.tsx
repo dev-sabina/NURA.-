@@ -3,7 +3,14 @@ import { motion } from "framer-motion";
 const products = [
   { id: "product1", left: "19vw", top: "41.5vh", height: "37vh", zIndex: 9 },
   { id: "product2", left: "30vw", top: "38vh", height: "44vh", zIndex: 10 },
-  { id: "product3", left: "50%", top: "35vh", height: "50vh", zIndex: 11, transform: "translateX(-50%)" },
+  {
+    id: "product3",
+    left: "43%",
+    top: "35vh",
+    height: "50vh",
+    zIndex: 11,
+    transform: "translateX(-50%)",
+  },
   { id: "product4", left: "57vw", top: "38vh", height: "44vh", zIndex: 10 },
   { id: "product5", left: "70.5vw", top: "41.5vh", height: "37vh", zIndex: 9 },
 ];
@@ -27,7 +34,12 @@ const ProductsSection = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
         viewport={{ once: true }}
-        style={{ fontSize: "4.2vw", position: "absolute", top: "20vh", fontWeight: 700 }}
+        style={{
+          fontSize: "4.2vw",
+          position: "absolute",
+          top: "20vh",
+          fontWeight: 700,
+        }}
       >
         Snack Smarter.
       </motion.h1>
@@ -52,7 +64,15 @@ const ProductsSection = () => {
             transition: "all cubic-bezier(0.19, 1, 0.22, 1) 2s",
           }}
         >
-          <img src="/images/canglow.png" alt="NURA Fruit Chews" style={{ height: "100%", width: "100%", backgroundColor: "var(--nura-bg)" }} />
+          <img
+            src="/images/canglow.png"
+            alt="NURA Fruit Chews"
+            style={{
+              height: "100%",
+              width: "100%",
+              backgroundColor: "var(--nura-bg)",
+            }}
+          />
         </motion.div>
       ))}
     </section>

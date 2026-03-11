@@ -86,7 +86,10 @@ const ContentSection = () => {
           }}
         >
           Deliciously Guilt-Free,{" "}
-          <span className="font-script" style={{ fontSize: "6vw", fontWeight: 900 }}>
+          <span
+            className="font-script"
+            style={{ fontSize: "6vw", fontWeight: 900 }}
+          >
             Anytime
           </span>
         </motion.h1>
@@ -103,8 +106,10 @@ const ContentSection = () => {
             textAlign: "center",
           }}
         >
-          Perfect for your desk, your bag,<br />
-          or your next adventure.<br />
+          Perfect for your desk, your bag,
+          <br />
+          or your next adventure.
+          <br />
           NURA is the sweet treat you crave.
         </motion.h2>
 

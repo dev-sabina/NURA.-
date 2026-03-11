@@ -12,19 +12,27 @@ const QuoteSection = () => {
         position: "relative",
         width: "100%",
         height: "100vh",
-        padding: "1vw 4vw",
+        padding: "5vw 4vw",
+        marginTop: "10vh", // ← this fixes the spacing
         display: "flex",
-        alignItems: "center",
+        alignItems: "flex-start",
       }}
     >
       <motion.h1
         initial={{ opacity: 0, x: -50 }}
         animate={isInView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
-        style={{ fontSize: "7.9vw", fontWeight: 700, lineHeight: 1.05 }}
+        style={{
+          fontSize: "7.9vw",
+          fontWeight: 700,
+          lineHeight: 1.05,
+          marginTop: "10vh", // space from top
+        }}
       >
-        COULDN'T STOP<br />
-        UNTIL THEY WERE GONE.<br />
+        COULDN'T STOP
+        <br />
+        UNTIL THEY WERE GONE.
+        <br />
         ZERO GUILT.
       </motion.h1>
     </section>

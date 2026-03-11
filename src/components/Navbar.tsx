@@ -2,7 +2,12 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const menuItems = [
-  "Strawberry", "Mango", "Mixed Berry", "Apple Burst", "Citrus Zing", "Flavor Mix Pack"
+  "Strawberry",
+  "Mango",
+  "Mixed Berry",
+  "Apple Burst",
+  "Citrus Zing",
+  "Flavor Mix Pack",
 ];
 const navLinks = ["About", "FAQs", "Contacts"];
 
@@ -49,14 +54,21 @@ const Navbar = () => {
           <div
             onClick={() => setMenuOpen(!menuOpen)}
             className="flex flex-col justify-between cursor-pointer relative z-[9999999]"
-            style={{ width: "2vw", minWidth: 28, height: "1.6vh", minHeight: 14 }}
+            style={{
+              width: "2vw",
+              minWidth: 28,
+              height: "1.6vh",
+              minHeight: 14,
+            }}
           >
             <span
               className="block rounded-full"
               style={{
                 height: 2,
                 width: menuOpen ? "70%" : "100%",
-                backgroundColor: menuOpen ? "var(--nura-menu-text)" : "var(--nura-text-nav)",
+                backgroundColor: menuOpen
+                  ? "var(--nura-menu-text)"
+                  : "var(--nura-text-nav)",
                 transformOrigin: "0 100%",
                 transform: menuOpen ? "rotate(40deg)" : "rotate(0deg)",
                 transition: "all cubic-bezier(0.19, 1, 0.22, 1) 2s",
@@ -67,7 +79,9 @@ const Navbar = () => {
               style={{
                 height: 2,
                 width: menuOpen ? "100%" : "70%",
-                backgroundColor: menuOpen ? "var(--nura-menu-text)" : "var(--nura-text-nav)",
+                backgroundColor: menuOpen
+                  ? "var(--nura-menu-text)"
+                  : "var(--nura-text-nav)",
                 transformOrigin: "30% 50%",
                 transform: menuOpen ? "rotate(-40deg)" : "rotate(0deg)",
                 transition: "all cubic-bezier(0.19, 1, 0.22, 1) 2s",

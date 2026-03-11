@@ -2,15 +2,51 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 
 const flavors = [
-  { id: "strawberry", num: "01", name: "Strawberry", subtitle: "real strawberry", color: "rgb(255, 99, 132)" },
-  { id: "mango", num: "02", name: "Mango", subtitle: "real mango", color: "rgb(255, 208, 0)" },
-  { id: "mixedberry", num: "03", name: "Mixed Berry", subtitle: "berries blend", color: "rgb(153, 50, 204)" },
-  { id: "appleburst", num: "04", name: "Apple Burst", subtitle: "crisp apple", color: "rgb(60, 179, 113)" },
-  { id: "citruszing", num: "05", name: "Citrus Zing", subtitle: "citrus fruits", color: "rgb(255, 255, 0)" },
-  { id: "flavormix", num: "06", name: "Flavor Mix Pack", subtitle: "all your favorites", color: "rgb(255, 195, 145)" },
+  {
+    id: "strawberry",
+    num: "01",
+    name: "Strawberry",
+    subtitle: "real strawberry",
+    color: "rgb(255, 99, 132)",
+  },
+  {
+    id: "mango",
+    num: "02",
+    name: "Mango",
+    subtitle: "real mango",
+    color: "rgb(255, 208, 0)",
+  },
+  {
+    id: "mixedberry",
+    num: "03",
+    name: "Mixed Berry",
+    subtitle: "berries blend",
+    color: "rgb(153, 50, 204)",
+  },
+  {
+    id: "appleburst",
+    num: "04",
+    name: "Apple Burst",
+    subtitle: "crisp apple",
+    color: "rgb(60, 179, 113)",
+  },
+  {
+    id: "citruszing",
+    num: "05",
+    name: "Citrus Zing",
+    subtitle: "citrus fruits",
+    color: "rgb(255, 255, 0)",
+  },
+  {
+    id: "flavormix",
+    num: "06",
+    name: "Flavor Mix Pack",
+    subtitle: "all your favorites",
+    color: "rgb(255, 195, 145)",
+  },
 ];
 
-const FlavorCard = ({ flavor }: { flavor: typeof flavors[0] }) => {
+const FlavorCard = ({ flavor }: { flavor: (typeof flavors)[0] }) => {
   const [hovered, setHovered] = useState(false);
   const [cardLeft, setCardLeft] = useState("20%");
 
@@ -55,11 +91,26 @@ const FlavorCard = ({ flavor }: { flavor: typeof flavors[0] }) => {
           justifyContent: "space-between",
         }}
       >
-        <h2 style={{ fontSize: 33, fontWeight: 100 }}>NURA<br />{flavor.num}</h2>
-        <h3 style={{ fontSize: 15, position: "absolute", top: "80%" }}>made with: {flavor.subtitle}</h3>
+        <h2 style={{ fontSize: 33, fontWeight: 100 }}>
+          NURA
+          <br />
+          {flavor.num}
+        </h2>
+        <h3 style={{ fontSize: 15, position: "absolute", top: "80%" }}>
+          made with: {flavor.subtitle}
+        </h3>
       </div>
 
-      <h4 style={{ alignSelf: "center", fontSize: 15, fontWeight: 500, minWidth: "5vw" }}>{flavor.num}</h4>
+      <h4
+        style={{
+          alignSelf: "center",
+          fontSize: 15,
+          fontWeight: 500,
+          minWidth: "5vw",
+        }}
+      >
+        {flavor.num}
+      </h4>
 
       <h1
         style={{
@@ -82,14 +133,18 @@ const FlavorCard = ({ flavor }: { flavor: typeof flavors[0] }) => {
         {flavor.name}
       </h1>
 
-      <p style={{
-        position: "absolute",
-        right: 0,
-        fontWeight: 900,
-        fontSize: 65,
-        opacity: hovered ? 1 : 0,
-        transition: "all cubic-bezier(0.19, 1, 0.22, 1) 1.3s",
-      }}>↗</p>
+      <p
+        style={{
+          position: "absolute",
+          right: 0,
+          fontWeight: 900,
+          fontSize: 65,
+          opacity: hovered ? 1 : 0,
+          transition: "all cubic-bezier(0.19, 1, 0.22, 1) 1.3s",
+        }}
+      >
+        ↗
+      </p>
     </div>
   );
 };
@@ -109,20 +164,26 @@ const FlavorsSection = () => {
         padding: "10vh 6vw",
       }}
     >
-      <div style={{
-        height: 2,
-        backgroundColor: "var(--nura-text-dim)",
-        width: isInView ? "100%" : "20%",
-        transition: "width 2s cubic-bezier(0.19, 1, 0.22, 1)",
-        position: "relative",
-      }}>
-        <h6 style={{
-          textTransform: "uppercase",
-          fontSize: 11,
-          position: "absolute",
-          left: "22vw",
-          top: -8,
-        }}>Explore Flavors</h6>
+      <div
+        style={{
+          height: 2,
+          backgroundColor: "var(--nura-text-dim)",
+          width: isInView ? "100%" : "20%",
+          transition: "width 2s cubic-bezier(0.19, 1, 0.22, 1)",
+          position: "relative",
+        }}
+      >
+        <h6
+          style={{
+            textTransform: "uppercase",
+            fontSize: 11,
+            position: "absolute",
+            left: "17vw",
+            top: -18,
+          }}
+        >
+          Explore Flavors
+        </h6>
       </div>
 
       <div style={{ marginTop: 32 }}>

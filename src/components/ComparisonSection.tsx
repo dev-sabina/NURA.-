@@ -30,24 +30,53 @@ const ComparisonSection = () => {
         }}
       >
         Is your treat{" "}
-        <span className="font-script" style={{ fontSize: "3.4vw", letterSpacing: "0.6vw" }}>just sugar?</span>
+        <span
+          className="font-script"
+          style={{ fontSize: "3.4vw", letterSpacing: "0.6vw" }}
+        >
+          just sugar?
+        </span>
       </motion.h3>
 
-      <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-around",
-        height: "40vh",
-      }}>
-        <ComparisonElement title="Typical Candy" imgSrc="/images/candy.webp" isInView={isInView} delay={0} offset={150} />
-        <ComparisonElement title="NURA" imgSrc="/images/right.webp" isInView={isInView} delay={0.2} offset={790} />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-around",
+          height: "40vh",
+        }}
+      >
+        <ComparisonElement
+          title="Typical Candy"
+          imgSrc="/images/candy.webp"
+          isInView={isInView}
+          delay={0}
+          offset={150}
+        />
+        <ComparisonElement
+          title="NURA"
+          imgSrc="/images/right.webp"
+          isInView={isInView}
+          delay={0.2}
+          offset={790}
+        />
       </div>
     </section>
   );
 };
 
-const ComparisonElement = ({ title, imgSrc, isInView, delay, offset }: {
-  title: string; imgSrc: string; isInView: boolean; delay: number; offset: number;
+const ComparisonElement = ({
+  title,
+  imgSrc,
+  isInView,
+  delay,
+  offset,
+}: {
+  title: string;
+  imgSrc: string;
+  isInView: boolean;
+  delay: number;
+  offset: number;
 }) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState(false);
@@ -72,12 +101,16 @@ const ComparisonElement = ({ title, imgSrc, isInView, delay, offset }: {
       }}
       onMouseLeave={() => setHovered(false)}
     >
-      <h1 style={{
-        fontSize: "3.3vw",
-        zIndex: 99,
-        fontWeight: 700,
-        transition: "opacity cubic-bezier(0.19, 1, 0.22, 1) 0.5s",
-      }}>{title}</h1>
+      <h1
+        style={{
+          fontSize: "3.3vw",
+          zIndex: 99,
+          fontWeight: 700,
+          transition: "opacity cubic-bezier(0.19, 1, 0.22, 1) 0.5s",
+        }}
+      >
+        {title}
+      </h1>
       <img
         src={imgSrc}
         alt={title}

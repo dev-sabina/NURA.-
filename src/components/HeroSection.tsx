@@ -56,8 +56,10 @@ const HeroSection = () => {
           y: tagY,
         }}
       >
-        Real fruit<br />
-        Pure deliciousness<br />
+        Real fruit
+        <br />
+        Pure deliciousness
+        <br />
         Made with joy
       </motion.h2>
 
@@ -76,8 +78,10 @@ const HeroSection = () => {
           y: tagY,
         }}
       >
-        NATURAL SWEETNESS<br />
-        ZERO<br />
+        NATURAL SWEETNESS
+        <br />
+        ZERO
+        <br />
         GUILT
       </motion.h3>
     </section>
