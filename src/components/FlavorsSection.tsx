@@ -52,29 +52,19 @@ const FlavorCard = ({ flavor }: { flavor: (typeof flavors)[0] }) => {
 
   return (
     <div
-      style={{
-        display: "flex",
-        alignItems: "flex-start",
-        position: "relative",
-        cursor: "pointer",
-        margin: "4vh 0",
-        transition: "all cubic-bezier(0.19, 1, 0.22, 1) 1s",
-      }}
-      onMouseMove={(e) => {
-        setCardLeft(`${e.clientX}px`);
-      }}
+      className="relative cursor-pointer my-[2vh] md:my-[4vh] flex items-start"
+      style={{ transition: "all cubic-bezier(0.19, 1, 0.22, 1) 1s" }}
+      onMouseMove={(e) => setCardLeft(`${e.clientX}px`)}
       onMouseLeave={() => {
         setHovered(false);
         setCardLeft("20%");
       }}
     >
-      {/* Floating card - absolutely positioned in section */}
+      
       <div
+        className="hidden md:flex absolute top-1/2 z-[1] flex-col justify-between"
         style={{
-          position: "absolute",
-          top: "50%",
           left: cardLeft,
-          zIndex: 1,
           transform: `translate(-50%, -50%) rotate(${hovered ? 20 : 0}deg)`,
           height: 300,
           width: 250,
@@ -86,9 +76,6 @@ const FlavorCard = ({ flavor }: { flavor: (typeof flavors)[0] }) => {
           textTransform: "uppercase",
           backgroundColor: flavor.color,
           pointerEvents: "none",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
         }}
       >
         <h2 style={{ fontSize: 33, fontWeight: 100 }}>
@@ -101,27 +88,15 @@ const FlavorCard = ({ flavor }: { flavor: (typeof flavors)[0] }) => {
         </h3>
       </div>
 
-      <h4
-        style={{
-          alignSelf: "center",
-          fontSize: 15,
-          fontWeight: 500,
-          minWidth: "5vw",
-        }}
-      >
+      <h4 className="self-center text-[11px] md:text-[15px] font-medium min-w-[8vw] md:min-w-[5vw]">
         {flavor.num}
       </h4>
 
       <h1
+        className="text-[8vw] md:text-[4.9vw] font-bold relative z-[99] ml-[5vw] md:ml-[12vw] text-left"
         style={{
-          fontSize: "4.9vw",
           transition: "all cubic-bezier(0.19, 1, 0.22, 1) 1s",
-          marginLeft: "12vw",
-          textAlign: "left",
-          position: "relative",
-          zIndex: 99,
-          fontWeight: 700,
-          letterSpacing: -5,
+          letterSpacing: -2,
           WebkitTextStroke: "1px var(--nura-text-nav)",
           color: hovered ? "var(--nura-bg)" : "var(--nura-text)",
         }}
@@ -134,11 +109,8 @@ const FlavorCard = ({ flavor }: { flavor: (typeof flavors)[0] }) => {
       </h1>
 
       <p
+        className="absolute right-0 font-black text-[35px] md:text-[65px]"
         style={{
-          position: "absolute",
-          right: 0,
-          fontWeight: 900,
-          fontSize: 65,
           opacity: hovered ? 1 : 0,
           transition: "all cubic-bezier(0.19, 1, 0.22, 1) 1.3s",
         }}
@@ -156,13 +128,7 @@ const FlavorsSection = () => {
   return (
     <section
       ref={ref}
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "100vh",
-        marginBottom: "6vw",
-        padding: "10vh 6vw",
-      }}
+      className="relative w-full min-h-[60vh] md:h-screen mb-[6vw] px-[4vw] md:px-[6vw] py-[6vh] md:py-[10vh]"
     >
       <div
         style={{
@@ -173,20 +139,12 @@ const FlavorsSection = () => {
           position: "relative",
         }}
       >
-        <h6
-          style={{
-            textTransform: "uppercase",
-            fontSize: 11,
-            position: "absolute",
-            left: "17vw",
-            top: -18,
-          }}
-        >
+        <h6 className="uppercase text-[9px] md:text-[11px] absolute left-[5vw] md:left-[18vw] -top-8">
           Explore Flavors
         </h6>
       </div>
 
-      <div style={{ marginTop: 32 }}>
+      <div className="mt-4 md:mt-8">
         {flavors.map((flavor) => (
           <FlavorCard key={flavor.id} flavor={flavor} />
         ))}

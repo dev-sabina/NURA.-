@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 const menuItems = [
   "Strawberry",
@@ -17,37 +16,21 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className="sticky top-0 z-[999999] flex items-center justify-between w-full"
+        className="sticky top-0 z-[999999] flex items-center justify-between w-full px-[4vw] md:px-[5.8vw] py-[2vh] md:py-[4vh]"
         style={{
-          padding: "4vh 5.8vw",
           color: menuOpen ? "var(--nura-menu-text)" : "var(--nura-text-nav)",
           backdropFilter: "blur(5px)",
           WebkitBackdropFilter: "blur(5px)",
           transition: "color 0.6s cubic-bezier(0.19, 1, 0.22, 1)",
         }}
       >
-        <h2
-          style={{
-            fontSize: "1rem",
-            letterSpacing: "0.5vw",
-            textTransform: "uppercase",
-            cursor: "pointer",
-            fontWeight: 100,
-          }}
-        >
+        <h2 className="text-[0.8rem] md:text-[1rem] tracking-[0.5vw] uppercase cursor-pointer font-thin">
           NURA
         </h2>
         <div className="flex items-center">
           <h3
-            className="hidden md:block"
-            style={{
-              fontSize: "1rem",
-              textTransform: "uppercase",
-              marginRight: 55,
-              letterSpacing: 2,
-              wordSpacing: 6,
-              cursor: "pointer",
-            }}
+            className="hidden md:block text-[1rem] uppercase mr-[55px] tracking-[2px] cursor-pointer"
+            style={{ wordSpacing: 6 }}
           >
             Cart
           </h3>
@@ -55,8 +38,8 @@ const Navbar = () => {
             onClick={() => setMenuOpen(!menuOpen)}
             className="flex flex-col justify-between cursor-pointer relative z-[9999999]"
             style={{
-              width: "2vw",
-              minWidth: 28,
+              width: "5vw",
+              minWidth: 24,
               height: "1.6vh",
               minHeight: 14,
             }}
@@ -91,7 +74,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Full-screen menu overlay */}
+     
       <div
         className="fixed inset-0 z-[999] flex flex-col justify-center overflow-hidden"
         style={{
@@ -103,36 +86,20 @@ const Navbar = () => {
         }}
       >
         <h1
-          style={{
-            fontSize: "13.5vw",
-            marginTop: "15vh",
-            marginLeft: "4.8vw",
-            letterSpacing: "-1vw",
-            textTransform: "uppercase",
-            fontWeight: 700,
-          }}
+          className="text-[20vw] md:text-[13.5vw] mt-[12vh] md:mt-[15vh] ml-[4.8vw] uppercase font-bold"
+          style={{ letterSpacing: "-1vw" }}
         >
           Menu
         </h1>
         <div
-          className="flex flex-col flex-wrap"
-          style={{
-            height: "45vh",
-            width: "45vw",
-            marginLeft: "5.5vw",
-            marginTop: "5vh",
-          }}
+          className="flex flex-col flex-wrap ml-[5.5vw] mt-[3vh] md:mt-[5vh] gap-y-[1.5vh] md:gap-y-0"
+          style={{ height: "auto", maxHeight: "45vh" }}
         >
           {[...menuItems, ...navLinks].map((item) => (
             <h4
               key={item}
-              className="cursor-pointer hover:opacity-60 transition-opacity"
-              style={{
-                fontSize: "1.8vw",
-                marginBottom: "2.2vh",
-                fontWeight: 500,
-                width: "15vw",
-              }}
+              className="cursor-pointer hover:opacity-60 transition-opacity text-[4.5vw] md:text-[1.8vw] font-medium mb-[1vh] md:mb-[2.2vh]"
+              style={{ width: "fit-content" }}
             >
               {item}
             </h4>

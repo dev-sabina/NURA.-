@@ -1,5 +1,5 @@
 import { useScroll, useTransform, motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const MarqueeSection = () => {
   const ref = useRef(null);
@@ -10,6 +10,15 @@ const MarqueeSection = () => {
 
   const x1 = useTransform(scrollYProgress, [0, 1], [0, -2000]);
   const x2 = useTransform(scrollYProgress, [0, 1], [-2000, 0]);
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const rows = [
     { type: "fruit", direction: 1 },
@@ -43,6 +52,7 @@ const MarqueeSection = () => {
               WebkitTextStroke: word.outline
                 ? "1px var(--nura-text-dim)"
                 : "none",
+              marginRight: isMobile ? "1vw" : "0", 
             }}
           >
             {word.text}
@@ -57,10 +67,10 @@ const MarqueeSection = () => {
         <div key={i} style={{ overflow: "hidden" }}>
           <motion.h1
             style={{
-              fontSize: "10vw",
+              fontSize: isMobile ? "16vw" : "10vw", 
               textTransform: "uppercase",
               cursor: "default",
-              lineHeight: "22vh",
+              lineHeight: isMobile ? "18vw" : "25vh", 
               whiteSpace: "nowrap",
               fontWeight: 700,
               x: row.direction === 1 ? x1 : x2,

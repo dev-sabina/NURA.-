@@ -1,9 +1,18 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const QuoteSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768); // Mobile breakpoint
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <section
@@ -11,9 +20,9 @@ const QuoteSection = () => {
       style={{
         position: "relative",
         width: "100%",
-        height: "100vh",
+        height: isMobile ? "auto" : "100vh",
         padding: "5vw 4vw",
-        marginTop: "10vh", // ← this fixes the spacing
+        marginTop: isMobile ? "0" : "10vh",
         display: "flex",
         alignItems: "flex-start",
       }}
@@ -26,7 +35,7 @@ const QuoteSection = () => {
           fontSize: "7.9vw",
           fontWeight: 700,
           lineHeight: 1.05,
-          marginTop: "10vh", // space from top
+          marginTop: isMobile ? 0 : "10vh",
         }}
       >
         COULDN'T STOP

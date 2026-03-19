@@ -8,57 +8,36 @@ const ComparisonSection = () => {
   return (
     <section
       ref={ref}
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "100vh",
-        backgroundColor: "var(--nura-bg)",
-        textAlign: "center",
-      }}
+      className="relative w-full min-h-[60vh] md:h-screen text-center hidden md:block" // hidden on mobile
+      style={{ backgroundColor: "var(--nura-bg)" }}
     >
       <motion.h3
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
-        style={{
-          fontSize: "2.8vw",
-          width: "38%",
-          margin: "2vw auto",
-          marginTop: "6vw",
-          marginBottom: "6vw",
-          fontWeight: 400,
-        }}
+        className="text-[5vw] md:text-[2.8vw] w-[80%] md:w-[38%] mx-auto mt-[8vw] md:mt-[6vw] mb-[6vw] font-normal"
       >
         Is your treat{" "}
         <span
-          className="font-script"
-          style={{ fontSize: "3.4vw", letterSpacing: "0.6vw" }}
+          className="font-script text-[6vw] md:text-[3.4vw]"
+          style={{ letterSpacing: "0.6vw" }}
         >
           just sugar?
         </span>
       </motion.h3>
 
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-around",
-          height: "40vh",
-        }}
-      >
+      <div className="flex flex-col md:flex-row items-center justify-around min-h-[30vh] md:h-[40vh] gap-8 md:gap-0 px-4 md:px-0">
         <ComparisonElement
           title="Typical Candy"
           imgSrc="/images/candy.webp"
           isInView={isInView}
           delay={0}
-          offset={150}
         />
         <ComparisonElement
           title="NURA"
           imgSrc="/images/right.webp"
           isInView={isInView}
           delay={0.2}
-          offset={790}
         />
       </div>
     </section>
@@ -70,52 +49,45 @@ const ComparisonElement = ({
   imgSrc,
   isInView,
   delay,
-  offset,
 }: {
   title: string;
   imgSrc: string;
   isInView: boolean;
   delay: number;
-  offset: number;
 }) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState(false);
+  const elRef = useRef<HTMLDivElement>(null);
 
   return (
     <motion.div
+      ref={elRef}
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, delay }}
-      style={{
-        width: "25%",
-        height: "100%",
-        position: "relative",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        cursor: "pointer",
-      }}
+      className="w-[80%] md:w-[25%] h-[20vh] md:h-full relative flex items-center justify-center cursor-pointer"
       onMouseMove={(e) => {
-        setMousePos({ x: e.clientX - offset, y: e.clientY - 190 });
+        if (!elRef.current) return;
+        const rect = elRef.current.getBoundingClientRect();
+        setMousePos({
+          x: e.clientX - rect.left - 100,
+          y: e.clientY - rect.top - 100,
+        });
         setHovered(true);
       }}
       onMouseLeave={() => setHovered(false)}
     >
       <h1
-        style={{
-          fontSize: "3.3vw",
-          zIndex: 99,
-          fontWeight: 700,
-          transition: "opacity cubic-bezier(0.19, 1, 0.22, 1) 0.5s",
-        }}
+        className="text-[8vw] md:text-[3.3vw] z-[99] font-bold"
+        style={{ transition: "opacity cubic-bezier(0.19, 1, 0.22, 1) 0.5s" }}
       >
         {title}
       </h1>
       <img
         src={imgSrc}
         alt={title}
+        className="absolute hidden md:block"
         style={{
-          position: "absolute",
           transform: "rotate(11deg)",
           opacity: hovered ? 1 : 0,
           height: "80%",

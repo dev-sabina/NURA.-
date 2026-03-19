@@ -12,7 +12,8 @@ node_modules
 dist
 dist-ssr
 *.local
-
+src/hooks/
+src/lib
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

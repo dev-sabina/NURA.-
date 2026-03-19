@@ -12,22 +12,11 @@ const AboutSection = () => {
   return (
     <section
       ref={containerRef}
-      style={{
-        position: "relative",
-        width: "100%",
-        minHeight: "100vh",
-        paddingBottom: "10vh",
-      }}
+      className="relative w-full min-h-[70vh] md:min-h-screen pb-[5vh] md:pb-[10vh]"
     >
       <motion.div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          height: 500,
-          marginBottom: "5vw",
-          y: imgY,
-        }}
+        className="flex items-center justify-center h-[250px] md:h-[500px] mb-[5vw]"
+        style={{ y: imgY }}
       >
         <motion.img
           initial={{ scale: 1.1 }}
@@ -36,7 +25,7 @@ const AboutSection = () => {
           viewport={{ once: true }}
           src="/images/img2.png"
           alt="Vibrant image of fruit candy"
-          style={{ height: "100%", objectFit: "contain" }}
+          className="h-full object-contain"
         />
       </motion.div>
 
@@ -68,6 +57,9 @@ const TextLine = ({
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
+  const mobileSizes = ["6vw", "5.5vw", "7vw"];
+  const desktopSizes = ["4vw", "3.8vw", "4.5vw"];
+
   return (
     <motion.h1
       ref={ref}
@@ -79,21 +71,21 @@ const TextLine = ({
         ease: [0.76, 0, 0.24, 1],
       }}
       style={{
-        fontSize: index === 1 ? "3.8vw" : index === 2 ? "4.5vw" : "4vw",
         fontWeight: index === 2 ? 900 : 500,
-        width: index === 1 ? "67%" : index === 2 ? "60%" : "80%",
         margin: "0 auto",
         textAlign: "center",
         transformOrigin: "-10% -10%",
         fontFamily: isScript ? "'Dancing Script', cursive" : undefined,
+        padding: "0 4vw",
       }}
+      className={`text-[${mobileSizes[index]}] md:text-[${desktopSizes[index]}] w-[95%] md:w-[${index === 1 ? "67%" : index === 2 ? "60%" : "80%"}]`}
     >
       {span ? (
         <>
           {text}
           <span
-            className="font-script"
-            style={{ fontWeight: 900, fontSize: "4.4vw" }}
+            className="font-script text-[7vw] md:text-[4.4vw]"
+            style={{ fontWeight: 900 }}
           >
             {span}
           </span>
