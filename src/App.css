@@ -1,9 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
+.font-dancing {
+  font-family: 'Dancing Script', cursive;
+}
+.french-flower {
+  font-family: 'Parisienne', cursive;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.5rem; /* adjust as needed */
+  letter-spacing: 0.05em;
+  color: #333; /* or any color you want */
+}
+
 
 .logo {
   height: 6em;

@@ -12,7 +12,7 @@ const AboutSection = () => {
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-[70vh] md:min-h-screen pb-[5vh] md:pb-[10vh]"
+      className="relative w-full min-h-[70vh] md:min-h-screen pb-[5vh] md:pb-[10vh] flex flex-col items-center"
     >
       <motion.div
         className="flex items-center justify-center h-[250px] md:h-[500px] mb-[5vw]"
@@ -29,14 +29,14 @@ const AboutSection = () => {
         />
       </motion.div>
 
-      <TextLine index={0} text="We're bringing the pure taste of real fruit" />
-      <TextLine
-        index={1}
-        text="into a chewy treat bursting with "
-        span="natural flavor"
-        after="."
-      />
-      <TextLine index={2} text="Sweetness you can feel good about." isScript />
+      
+      <div className="flex flex-col items-center text-center w-full px-4">
+        <TextLine index={0} text="We're bringing the pure taste of real" />
+        <TextLine index={1} text="fruit" />
+        <TextLine index={2} text="into a chewy treat bursting with" />
+        <TextLine index={3} text="natural flavor." isScript />
+        <TextLine index={4} text="Sweetness you can feel good about." isScript />
+      </div>
     </section>
   );
 };
@@ -44,57 +44,37 @@ const AboutSection = () => {
 const TextLine = ({
   index,
   text,
-  span,
-  after,
   isScript,
 }: {
   index: number;
   text: string;
-  span?: string;
-  after?: string;
   isScript?: boolean;
 }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
-  const mobileSizes = ["6vw", "5.5vw", "7vw"];
-  const desktopSizes = ["4vw", "3.8vw", "4.5vw"];
-
   return (
-    <motion.h1
-      ref={ref}
-      initial={{ opacity: 0, rotateX: -90 }}
-      animate={isInView ? { opacity: 1, rotateX: 0 } : {}}
-      transition={{
-        duration: 1.2,
-        delay: index * 0.15,
-        ease: [0.76, 0, 0.24, 1],
-      }}
-      style={{
-        fontWeight: index === 2 ? 900 : 500,
-        margin: "0 auto",
-        textAlign: "center",
-        transformOrigin: "-10% -10%",
-        fontFamily: isScript ? "'Dancing Script', cursive" : undefined,
-        padding: "0 4vw",
-      }}
-      className={`text-[${mobileSizes[index]}] md:text-[${desktopSizes[index]}] w-[95%] md:w-[${index === 1 ? "67%" : index === 2 ? "60%" : "80%"}]`}
-    >
-      {span ? (
-        <>
-          {text}
-          <span
-            className="font-script text-[7vw] md:text-[4.4vw]"
-            style={{ fontWeight: 900 }}
-          >
-            {span}
-          </span>
-          {after}
-        </>
-      ) : (
-        text
-      )}
-    </motion.h1>
+    <div style={{ perspective: "1000px" }} className="w-full">
+      <motion.h1
+        ref={ref}
+        initial={{ opacity: 0, rotateX: 90, y: 20 }}
+        animate={isInView ? { opacity: 1, rotateX: 0, y: 0 } : {}}
+        transition={{
+          duration: 1.2,
+          delay: index * 0.1,
+          ease: [0.76, 0, 0.24, 1],
+        }}
+        className={`
+          leading-[1.2] tracking-tight
+          ${isScript 
+            ? "font-['Dancing_Script',_cursive] text-[7.5vw] md:text-[3.5vw] font-normal lowercase italic" 
+            : "font-sans font-bold text-[6vw] md:text-[4.8vw]"
+          }
+        `}
+      >
+        {text}
+      </motion.h1>
+    </div>
   );
 };
 

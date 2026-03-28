@@ -46,6 +46,8 @@ const flavors = [
   },
 ];
 
+// ... rest of your imports and flavors array stay the same
+
 const FlavorCard = ({ flavor }: { flavor: (typeof flavors)[0] }) => {
   const [hovered, setHovered] = useState(false);
   const [cardLeft, setCardLeft] = useState("20%");
@@ -54,13 +56,18 @@ const FlavorCard = ({ flavor }: { flavor: (typeof flavors)[0] }) => {
     <div
       className="relative cursor-pointer my-[2vh] md:my-[4vh] flex items-start"
       style={{ transition: "all cubic-bezier(0.19, 1, 0.22, 1) 1s" }}
-      onMouseMove={(e) => setCardLeft(`${e.clientX}px`)}
+      // Note: For a smoother "following" effect, you might want to use 
+      // Framer Motion's useSpring for cardLeft instead of raw state
+      onMouseMove={(e) => {
+        setHovered(true);
+        setCardLeft(`${e.clientX}px`);
+      }}
       onMouseLeave={() => {
         setHovered(false);
         setCardLeft("20%");
       }}
     >
-      
+      {/* Hovering Card Preview */}
       <div
         className="hidden md:flex absolute top-1/2 z-[1] flex-col justify-between"
         style={{
@@ -72,7 +79,7 @@ const FlavorCard = ({ flavor }: { flavor: (typeof flavors)[0] }) => {
           color: "black",
           padding: "20px 25px",
           opacity: hovered ? 1 : 0,
-          transition: "all cubic-bezier(0.19, 1, 0.22, 1) 4s, opacity 0.5s",
+          transition: "all cubic-bezier(0.19, 1, 0.22, 1) 1s, opacity 0.5s", // Adjusted transition speed to match CSS
           textTransform: "uppercase",
           backgroundColor: flavor.color,
           pointerEvents: "none",
@@ -88,21 +95,46 @@ const FlavorCard = ({ flavor }: { flavor: (typeof flavors)[0] }) => {
         </h3>
       </div>
 
+      {/* Flavor Number */}
       <h4 className="self-center text-[11px] md:text-[15px] font-medium min-w-[8vw] md:min-w-[5vw]">
         {flavor.num}
       </h4>
 
+      {/* FLAVOR NAME - FONT CHANGED HERE */}
+  {/* FLAVOR NAME - FONT CHANGED & FILL EFFECT APPLIED HERE */}
       <h1
-        className="text-[8vw] md:text-[4.9vw] font-bold relative z-[99] ml-[5vw] md:ml-[12vw] text-left"
+        className="relative z-[99] ml-[5vw] md:ml-[12vw] text-left uppercase"
         style={{
+          // 1. Specific Font Family from your CSS snippet
+          fontFamily: '"Havelock Titling", sans-serif',
+          
+          // 2. Specific Font Size from your CSS snippet
+          fontSize: "4.9vw", // Using explicit 4.9vw
+          fontWeight: 700,
+          
+          // 3. Specific Spacing/Stroke from your CSS snippet
+          letterSpacing: "-5px",
+          WebkitTextStroke: "1px #cecece", // Default outline color
+
+          // 4. Cubic Bezier from your CSS snippet
           transition: "all cubic-bezier(0.19, 1, 0.22, 1) 1s",
-          letterSpacing: -2,
-          WebkitTextStroke: "1px var(--nura-text-nav)",
-          color: hovered ? "var(--nura-bg)" : "var(--nura-text)",
+
+          // 5. FILL EFFECT LOGIC:
+          // Normally: transparent fill (show just the outline)
+          // On Hover: solid white fill
+          color: hovered ? "white" : "transparent",
+
+          // OPTIONAL refinement for the outline color on hover (e.g., matching the fill)
+          // WebkitTextStrokeColor: hovered ? "white" : "#cecece",
         }}
+        // Handlers are likely on the parent <div>, but adding them here for safety if isolated
         onMouseEnter={() => {
           setHovered(true);
           setCardLeft("40%");
+        }}
+        onMouseLeave={() => {
+          setHovered(false);
+          setCardLeft("20%");
         }}
       >
         {flavor.name}
@@ -120,6 +152,8 @@ const FlavorCard = ({ flavor }: { flavor: (typeof flavors)[0] }) => {
     </div>
   );
 };
+
+// ... rest of FlavorsSection stays the same
 
 const FlavorsSection = () => {
   const ref = useRef(null);

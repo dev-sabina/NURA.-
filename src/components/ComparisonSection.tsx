@@ -22,7 +22,7 @@ const ComparisonSection = () => {
           className="font-script text-[6vw] md:text-[3.4vw]"
           style={{ letterSpacing: "0.6vw" }}
         >
-          just sugar?
+          just <br /> sugar?
         </span>
       </motion.h3>
 
